@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping
+@RequestMapping("api/game")
 public class GameController {
 
     private final GameDao gameDao;
@@ -28,9 +28,24 @@ public class GameController {
         return ResponseEntity.ok("Test endpoint response");
     }
 
+//    @GetMapping("/state")
+//    public GameState getGameState() {
+//        System.out.println("Reading the controller");
+//        return gameDao.initializeGameState();
+//    }
+
     @GetMapping("/state")
-    public GameState getGameState() {
+    public GameState startGame() {
         System.out.println("Reading the controller");
-        return gameDao.initializeGameState();
+        return gameDao.startGame();
     }
+
+    @PostMapping("/submit")
+    public ResponseEntity<String> submitForm(@RequestBody Person person) {
+
+        gameDao.setPlayers(person.getName());
+
+        return ResponseEntity.ok("Name received name is " + person.getName());
+    }
+
 }

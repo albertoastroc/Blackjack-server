@@ -6,6 +6,9 @@ public class Person extends Player {
         super(name);
     }
 
+    public Person() {
+    }
+
     @Override
     public int hashCode() {
         return getName().toLowerCase().hashCode();

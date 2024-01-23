@@ -2,21 +2,19 @@ package com.berto.Blackjack.server.model;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class GameState {
 
-    private List<Person> personList;
+    private Player player;
 
     private Dealer dealer;
 
-    public List<Person> getPersonList() {
-        return personList;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public Dealer getDealer() {

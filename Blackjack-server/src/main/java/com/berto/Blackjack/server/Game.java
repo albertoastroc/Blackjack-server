@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import static com.berto.Blackjack.server.Constants.*;
 
 public class Game {
-
-    private final Scanner scanner;
     private final Dealer dealer = new Dealer();
     private final Deck deck = new Deck();
     private final OpenAiService openAiService = new OpenAiService();
@@ -22,10 +20,18 @@ public class Game {
     private Map<String, Integer> betsMap = new HashMap<>();
     private boolean useBots = true;
 
+    public Dealer getDealer() {
+        return dealer;
+    }
 
-    public Game(Scanner scanner) {
-        this.scanner = scanner;
 
+
+    public Set<Player> getSetOfPlayers() {
+        return setOfPlayers;
+    }
+
+    public void setSetOfPlayers(Set<Player> setOfPlayers) {
+        this.setOfPlayers = setOfPlayers;
     }
 
     public void addBots() {
@@ -39,34 +45,34 @@ public class Game {
         }
     }
 
-    public void addPlayerFunds(String playerName) {
-
-        //Filters for Player that has the matching name
-        if (setOfPlayers.contains(new Person(playerName))) {
-
-            while (true) {
-                try {
-                    System.out.println("How much should be added?");
-                    String amount = scanner.nextLine();
-
-                    Player person = setOfPlayers.stream().filter(p -> p.getName().equals(playerName))
-                            .collect(Collectors.toList()).get(0);
-                    person.addToBalance(Integer.parseInt(amount));
-
-                    break;
-
-                } catch (NumberFormatException numberFormatException) {
-
-                    System.out.println("Invalid amount");
-                }
-            }
-
-        } else {
-
-            System.out.println(playerName + " doesn't exist");
-
-        }
-    }
+//    public void addPlayerFunds(String playerName) {
+//
+//        //Filters for Player that has the matching name
+//        if (setOfPlayers.contains(new Person(playerName))) {
+//
+//            while (true) {
+//                try {
+//                    System.out.println("How much should be added?");
+//                    String amount = scanner.nextLine();
+//
+//                    Player person = setOfPlayers.stream().filter(p -> p.getName().equals(playerName))
+//                            .collect(Collectors.toList()).get(0);
+//                    person.addToBalance(Integer.parseInt(amount));
+//
+//                    break;
+//
+//                } catch (NumberFormatException numberFormatException) {
+//
+//                    System.out.println("Invalid amount");
+//                }
+//            }
+//
+//        } else {
+//
+//            System.out.println(playerName + " doesn't exist");
+//
+//        }
+//    }
 
     public void addPlayers(String inputPlayers) {
 
@@ -144,7 +150,7 @@ public class Game {
 
         }
 
-        getBets();
+        //getBets();
 
         dealStartingHands();
 
@@ -160,12 +166,12 @@ public class Game {
         payBets();
 
         System.out.println("Play another round? y/n");
-        String answer = scanner.nextLine().toLowerCase();
-
-        if (answer.equals("y")) {
-            playRound();
-
-        }
+//        String answer = scanner.nextLine().toLowerCase();
+//
+//        if (answer.equals("y")) {
+//            playRound();
+//
+//        }
     }
 
     public void printPlayersAndBalances() {
@@ -190,16 +196,16 @@ public class Game {
         }
     }
 
-    public void toggleBots() {
-
-        String userChoice = scanner.nextLine();
-        useBots = userChoice.equalsIgnoreCase("y");
-        if (useBots) {
-            System.out.println("Bots are turned on");
-        } else System.out.println("Bots are turned off");
-
-
-    }
+//    public void toggleBots() {
+//
+//        String userChoice = scanner.nextLine();
+//        useBots = userChoice.equalsIgnoreCase("y");
+//        if (useBots) {
+//            System.out.println("Bots are turned on");
+//        } else System.out.println("Bots are turned off");
+//
+//
+//    }
 
     /**
      * @return -1 for loss, 0 for tie, 1 for win
@@ -225,47 +231,47 @@ public class Game {
         }
     }
 
-    private void getBets() {
-
-        for (Player currentPerson : setOfPlayers) {
-
-            if (currentPerson instanceof OpenAIBot) {
-
-                int betAmount = ((OpenAIBot) currentPerson).getBetAmount();
-                betsMap.put(currentPerson.getName(), betAmount);
-
-            } else {
-
-            int playerBalance = currentPerson.getBalance();
-
-            while (true) {
-
-                try {
-
-                    int betAmount = 0;
-
-                    while (betAmount < 200) {
-
-                        System.out.println(currentPerson.getName() + " you have " + currentPerson.getBalance()
-                                + " chips how many chips will you bet? (200 minimum)");
-                        betAmount = Integer.parseInt(scanner.nextLine());
-                    }
-
-                    if (betAmount <= playerBalance) {
-                        betsMap.put(currentPerson.getName(), betAmount);
-                        System.out.println("Bet is placed");
-                    }
-
-                    break;
-
-                } catch (NumberFormatException numberFormatException) {
-                    System.out.println("Invalid amount");
-
-                }
-            }
-            }
-        }
-    }
+//    private void getBets() {
+//
+//        for (Player currentPerson : setOfPlayers) {
+//
+//            if (currentPerson instanceof OpenAIBot) {
+//
+//                int betAmount = ((OpenAIBot) currentPerson).getBetAmount();
+//                betsMap.put(currentPerson.getName(), betAmount);
+//
+//            } else {
+//
+//            int playerBalance = currentPerson.getBalance();
+//
+//            while (true) {
+//
+//                try {
+//
+//                    int betAmount = 0;
+//
+//                    while (betAmount < 200) {
+//
+//                        System.out.println(currentPerson.getName() + " you have " + currentPerson.getBalance()
+//                                + " chips how many chips will you bet? (200 minimum)");
+//                        betAmount = Integer.parseInt(scanner.nextLine());
+//                    }
+//
+//                    if (betAmount <= playerBalance) {
+//                        betsMap.put(currentPerson.getName(), betAmount);
+//                        System.out.println("Bet is placed");
+//                    }
+//
+//                    break;
+//
+//                } catch (NumberFormatException numberFormatException) {
+//                    System.out.println("Invalid amount");
+//
+//                }
+//            }
+//            }
+//        }
+//    }
 
     private void payoutWhenDealerBusts(Player person) {
 
@@ -450,18 +456,18 @@ public class Game {
 
                         printHands();
 
-                        System.out.println(
-                                currentPerson.getName() + " you have " + hand.getHandScore()
-                                        + " hit or stay? (h/s)");
-                        String hitAnswer = scanner.nextLine().toLowerCase();
-
-                        if (hitAnswer.equals("h")) {
-
-                            hand.addCardToHand(deck.getRandomCard());
-
-                        } else {
-                            break;
-                        }
+//                        System.out.println(
+//                                currentPerson.getName() + " you have " + hand.getHandScore()
+//                                        + " hit or stay? (h/s)");
+//                        String hitAnswer = scanner.nextLine().toLowerCase();
+//
+//                        if (hitAnswer.equals("h")) {
+//
+//                            hand.addCardToHand(deck.getRandomCard());
+//
+//                        } else {
+//                            break;
+//                        }
                     }
                 }
 
