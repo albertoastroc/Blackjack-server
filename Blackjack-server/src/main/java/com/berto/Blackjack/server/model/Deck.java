@@ -11,6 +11,24 @@ import static com.berto.Blackjack.server.Constants.NUMBER_OF_DECKS;
  */
 public class Deck {
 
+    private static Deck singleInstance = null;
+
+    private  Deck() {
+
+        loadDeck();
+
+    }
+
+    public static synchronized Deck getInstance() {
+
+        if (singleInstance == null) {
+            singleInstance = new Deck();
+        }
+
+        return singleInstance;
+
+    }
+
     private final List<Card> cardList = new ArrayList<>();
     private final Random random = new Random();
 

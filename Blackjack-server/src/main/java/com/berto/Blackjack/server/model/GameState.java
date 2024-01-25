@@ -24,4 +24,12 @@ public class GameState {
     public void setDealer(Dealer dealer) {
         this.dealer = dealer;
     }
+
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "player=" + player +
+                ", dealer=" + dealer +
+                '}';
+    }
 }

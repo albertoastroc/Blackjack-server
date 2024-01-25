@@ -10,7 +10,8 @@ import static com.berto.Blackjack.server.Constants.*;
 
 public class Game {
     private final Dealer dealer = new Dealer();
-    private final Deck deck = new Deck();
+
+    private Deck deck = Deck.getInstance();
     private final OpenAiService openAiService = new OpenAiService();
     //Used for payout and compare hands
     Set<Player> setOfPlayersNotBust = new HashSet<>();

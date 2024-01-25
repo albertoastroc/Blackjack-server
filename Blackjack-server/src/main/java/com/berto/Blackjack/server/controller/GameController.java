@@ -34,18 +34,35 @@ public class GameController {
 //        return gameDao.initializeGameState();
 //    }
 
+    @PostMapping("/hit")
+    public ResponseEntity<String> hit() {
+
+        gameDao.hit();
+
+        return ResponseEntity.ok("Player hits " + "state is " + gameDao.getGameState());
+    }
+
     @GetMapping("/state")
     public GameState startGame() {
         System.out.println("Reading the controller");
-        return gameDao.startGame();
+        return gameDao.setUpGameState();
     }
 
     @PostMapping("/submit")
     public ResponseEntity<String> submitForm(@RequestBody Person person) {
 
-        gameDao.setPlayers(person.getName());
+        gameDao.addPlayer(person.getName());
 
-        return ResponseEntity.ok("Name received name is " + person.getName());
+        return ResponseEntity.ok("Name received name is " + person.getName() + "state is " + gameDao.getGameState());
     }
 
 }
+
+//function changeName(){
+//        const nameField = document.getElementById("playerName");
+//    nameField.innerText = gameState.player.name;
+//
+//}
+//
+//    const addNameButton = document.getElementById("addNameButton");
+//        addnameButton.addEventListener("click", changeName);
