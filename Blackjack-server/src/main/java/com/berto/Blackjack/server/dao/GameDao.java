@@ -12,11 +12,7 @@ public interface GameDao {
 
     void hit();
 
-    GameState setUpGameState();
-
     GameState getGameState();
 
     public void addPlayer(String name);
-
-    GameState initializeGameState();
 }

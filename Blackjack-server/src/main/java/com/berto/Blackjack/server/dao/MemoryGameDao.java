@@ -30,7 +30,7 @@ public class MemoryGameDao implements GameDao {
         this.player = player;
     }
 
-    public MemoryGameDao() { initializeTestData(); }
+    public MemoryGameDao() {  }
 
     @Override
     public List<Person> getPlayers() {
@@ -40,8 +40,12 @@ public class MemoryGameDao implements GameDao {
     @Override
     public void newGame(){
 
+        set = new HashSet<>();
+        game = new Game();
+        gameState = new GameState();
+
         game.setSetOfPlayers(set);
-        game.loadNewDeck();
+        gameState.setDealer(game.getDealer());
     }
 
     public void hit(){
@@ -49,19 +53,6 @@ public class MemoryGameDao implements GameDao {
         player.getHands().get(0).addCardToHand(Deck.getInstance().getRandomCard());
         System.out.println(player.getHands().get(0));
 
-    }
-
-    @Override
-    public GameState setUpGameState() {
-
-        set = new HashSet<>();
-//        set.add(new Person("Bre"));
-
-        game.setSetOfPlayers(set);
-
-//        gameState.setPlayer(game.getSetOfPlayers().iterator().next());
-        gameState.setDealer(game.getDealer());
-        return gameState;
     }
 
     @Override
@@ -75,7 +66,7 @@ public class MemoryGameDao implements GameDao {
         player = new Person(name);
         player.setUpStartingHand(Deck.getInstance());
         set.add(player);
-        gameState.setPlayer(player);
+        gameState.addPlayer(player);
 
 
     }
@@ -83,26 +74,6 @@ public class MemoryGameDao implements GameDao {
     public void playRound(){
 
         game.playRound();
-
-    }
-
-    @Override
-    public GameState initializeGameState() {
-
-        GameState gameState = new GameState();
-
-        gameState.setDealer(dealer);
-
-        gameState.setPlayer(player);
-
-        return gameState;
-    }
-
-    public void initializeTestData() {
-
-        players.add(new Person("Brian"));
-
-        players.add(new Person("Reggie"));
 
     }
 

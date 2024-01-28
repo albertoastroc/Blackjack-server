@@ -23,16 +23,16 @@ public class GameController {
         return gameDao.getPlayers();
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> testEndpoint() {
-        return ResponseEntity.ok("Test endpoint response");
+    @GetMapping("/connected")
+    public ResponseEntity<String> confirmConnection() {
+        return ResponseEntity.ok("Connected");
     }
 
-//    @GetMapping("/state")
-//    public GameState getGameState() {
-//        System.out.println("Reading the controller");
-//        return gameDao.initializeGameState();
-//    }
+    @GetMapping("/new")
+    public void getGameState() {
+        System.out.println("Reading the controller");
+        gameDao.newGame();
+    }
 
     @PostMapping("/hit")
     public ResponseEntity<String> hit() {
@@ -45,7 +45,7 @@ public class GameController {
     @GetMapping("/state")
     public GameState startGame() {
         System.out.println("Reading the controller");
-        return gameDao.setUpGameState();
+        return gameDao.getGameState();
     }
 
     @PostMapping("/submit")
