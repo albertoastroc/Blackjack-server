@@ -3,14 +3,14 @@ package com.berto.Blackjack.server.dao;
 import com.berto.Blackjack.server.model.GameState;
 import com.berto.Blackjack.server.model.Person;
 
-import java.util.List;
+import java.util.Set;
 
 public interface GameDao {
-    List<Person> getPlayers();
+    Set<Person> getPlayers();
 
     void newGame();
 
-    void hit();
+    void hit(String name);
 
     GameState getGameState();
 

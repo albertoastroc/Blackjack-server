@@ -17,7 +17,7 @@ public class Game {
     Set<Player> setOfPlayersNotBust = new HashSet<>();
     //Used to remove bets from their balances
     Set<Player> setOfPlayersBust = new HashSet<>();
-    private Set<Player> setOfPlayers = new HashSet<>();
+    private Set<Person> setOfPlayers = new HashSet<>();
     private Map<String, Integer> betsMap = new HashMap<>();
     private boolean useBots = true;
 
@@ -27,24 +27,24 @@ public class Game {
 
 
 
-    public Set<Player> getSetOfPlayers() {
+    public Set<Person> getSetOfPlayers() {
         return setOfPlayers;
     }
 
-    public void setSetOfPlayers(Set<Player> setOfPlayers) {
+    public void setSetOfPlayers(Set<Person> setOfPlayers) {
         this.setOfPlayers = setOfPlayers;
     }
 
-    public void addBots() {
-
-        while (setOfPlayers.size() < 5) {
-
-            OpenAIBot bot = new OpenAIBot(openAiService);
-
-            setOfPlayers.add(bot);
-
-        }
-    }
+//    public void addBots() {
+//
+//        while (setOfPlayers.size() < 5) {
+//
+//            OpenAIBot bot = new OpenAIBot(openAiService);
+//
+//            setOfPlayers.add(bot);
+//
+//        }
+//    }
 
 //    public void addPlayerFunds(String playerName) {
 //
@@ -83,13 +83,13 @@ public class Game {
             //Player names must be unique
             Player newPerson = new Person(playerName.trim());
 
-            if (!newPerson.getName().isBlank()) {
-
-                boolean added = setOfPlayers.add(newPerson);
-                if (!added) {
-                    System.out.println("Player with the name " + playerName.trim() + " already exists");
-                }
-            }
+//            if (!newPerson.getName().isBlank()) {
+//
+//                boolean added = setOfPlayers.add(newPerson);
+//                if (!added) {
+//                    System.out.println("Player with the name " + playerName.trim() + " already exists");
+//                }
+//            }
         }
     }
 
@@ -139,10 +139,10 @@ public class Game {
 
         setOfPlayersBust = new HashSet<>();
 
-        if (useBots) {
-
-            addBots();
-        }
+//        if (useBots) {
+//
+//            addBots();
+//        }
 
         //Load a new deck if deck is running out of cards
         if (deck.getDeckSize() < MIN_PLAYABLE_DECK_SIZE) {

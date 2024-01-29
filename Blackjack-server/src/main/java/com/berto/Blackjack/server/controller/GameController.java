@@ -3,10 +3,11 @@ package com.berto.Blackjack.server.controller;
 import com.berto.Blackjack.server.dao.GameDao;
 import com.berto.Blackjack.server.model.GameState;
 import com.berto.Blackjack.server.model.Person;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/game")
@@ -19,7 +20,7 @@ public class GameController {
     }
 
     @GetMapping("/players")
-    public List<Person> getPlayers() {
+    public Set<Person> getPlayers() {
         return gameDao.getPlayers();
     }
 
@@ -29,31 +30,30 @@ public class GameController {
     }
 
     @GetMapping("/new")
-    public void getGameState() {
+    public void newGame() {
         System.out.println("Reading the controller");
         gameDao.newGame();
     }
 
-    @PostMapping("/hit")
-    public ResponseEntity<String> hit() {
+    @PostMapping("/hit/{name}")
+    public ResponseEntity<String> hit(@PathVariable String name) {
 
-        gameDao.hit();
+        gameDao.hit(name);
 
         return ResponseEntity.ok("Player hits " + "state is " + gameDao.getGameState());
     }
 
     @GetMapping("/state")
-    public GameState startGame() {
+    public GameState getGameState() {
         System.out.println("Reading the controller");
         return gameDao.getGameState();
     }
 
-    @PostMapping("/submit")
-    public ResponseEntity<String> submitForm(@RequestBody Person person) {
-
+    @PostMapping("/add-player")
+    public ResponseEntity<String> addPlayer(@RequestBody Person person) {
         gameDao.addPlayer(person.getName());
 
-        return ResponseEntity.ok("Name received name is " + person.getName() + "state is " + gameDao.getGameState());
+        return ResponseEntity.ok("Name received name is " + person.getName() + " state is " + gameDao.getGameState());
     }
 
 }

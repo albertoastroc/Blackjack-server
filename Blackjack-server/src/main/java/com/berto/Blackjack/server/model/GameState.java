@@ -2,21 +2,21 @@ package com.berto.Blackjack.server.model;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 @Component
 public class GameState {
 
-    private List<Player> player;
+    private Set<Person> playersList;
 
     private Dealer dealer;
 
-    public List<Player> getPlayer() {
-        return player;
+    public Set<Person> getPlayersList() {
+        return playersList;
     }
 
-    public void addPlayer(Player player) {
-        this.player = player;
+    public void setPlayerList(Set<Person> playerList) {
+        this.playersList = playerList;
     }
 
     public Dealer getDealer() {
@@ -30,7 +30,7 @@ public class GameState {
     @Override
     public String toString() {
         return "GameState{" +
-                "player=" + player +
+                "playersList=" + playersList +
                 ", dealer=" + dealer +
                 '}';
     }
